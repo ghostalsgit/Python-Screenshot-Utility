@@ -1,5 +1,5 @@
 import keyboard
-import PIL from ImageGrab
+from PIL import ImageGrab
 import win32clipboard
 import io
 

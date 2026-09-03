@@ -2,11 +2,28 @@ import keyboard
 from PIL import ImageGrab
 import win32clipboard
 import io
+import os
+from datetime import datetime
+
+# directories
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+CAPTURES_DIR = os.path.join(SCRIPT_DIR, "captures")
+
+# creates a directory for captures if it doesn't already exist
+os.makedirs(CAPTURES_DIR, exist_ok=True)
+
 
 def capture_n_copy():
     print("Capturing Screenshot...")
 
     img = ImageGrab.grab()
+
+    # save img to /captures
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    file_path = os.path.join(CAPTURES_DIR, f"screenshot_{timestamp}.png")
+    img.save(file_path)
+    print(f"Saved a capture to {file_path}")
+
 
     # win clipboard expects device independent bitmap (DIB) format
     output = io.BytesIO()
